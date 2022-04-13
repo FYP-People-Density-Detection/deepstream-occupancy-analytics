@@ -41,10 +41,10 @@ nvbuf-memory-type=0
 
 
 [source0]
-enable=1
+enable=0
 #Type - 1=CameraV4L2 2=URI 3=MultiURI
 type=3
-uri=file:///opt/nvidia/deepstream/deepstream-5.1/sources/apps/sample_apps/demo/out.mp4
+uri=file:///home/hkucs21024/fypvideo/drone_1.mp4
 num-sources=1
 gpu-id=0
 nvbuf-memory-type=0
@@ -53,7 +53,7 @@ nvbuf-memory-type=0
 enable=1
 #Type - 1=CameraV4L2 2=URI 3=MultiURI 4=RTSP
 type=3
-uri=file:///opt/nvidia/deepstream/deepstream-5.1/samples/streams/sample_1080p_h264.mp4
+uri=file:///home/hkucs21024/fypvideo/drone_1_1_cropped.mp4
 num-sources=1
 gpu-id=0
 nvbuf-memory-type=0
@@ -72,23 +72,23 @@ smart-rec-video-cache=10
 
 
 [sink0]
-enable=1
-type=2
-#1=mp4 2=mkv./bin/kafka-topics --create --bootstrap-server localhost:9092 \
-#--replication-factor 1 --partitions 1 --topic users
+enable=0
+#Type - 1=FakeSink 2=EglSink 3=File 4=UDPSink 5=nvoverlaysink 6=MsgConvBroker
+type=3
+#1=mp4 2=mkv
 container=1
 #1=h264 2=h265
 codec=1
 #encoder type 0=Hardware 1=Software
-enc-type=0
+#enc-type=0
 sync=0
 #iframeinterval=10
-bitrate=100000
+bitrate=8000000
 #H264 Profile - 0=Baseline 2=Main 4=High
 #H265 Profile - 0=Main 1=Main10
-profile=0
-output-file=resnet.mp4
+#profile=0
 source-id=0
+output-file=/home/hkucs21024/fypvideo/out/out.mp4
 
 [sink1]
 enable=1
@@ -101,24 +101,29 @@ msg-conv-config=dstest5_msgconv_sample_config.txt
 #(257): PAYLOAD_CUSTOM   - Custom schema payload
 msg-conv-payload-type=0
 msg-broker-proto-lib=/opt/nvidia/deepstream/deepstream-5.1/lib/libnvds_kafka_proto.so
+msg-conv-msg2p-lib=../bin/jetson/libnvds_msgconv.so
 #Provide your msg-broker-conn-str here
-msg-broker-conn-str=localhost;9092;quickstart-events
-#topic=<topic>
+msg-broker-conn-str=localhost;9092
+topic=quickstart-events
 #Optional:
-#msg-broker-config=../../deepstream-test4/cfg_kafka.txt
+msg-broker-config=../../deepstream-test4/cfg_kafka.txt
 
 [sink2]
 enable=1
-type=1
-#1=mp4 2=mkv
-container=1
-#1=h264 2=h265 3=mpeg4
-## only SW mpeg4 is supported right now.
-codec=3
-sync=1
-bitrate=2000000
-output-file=out.mp4
-source-id=0
+#Type - 1=FakeSink 2=EglSink 3=File 4=RTSPStreaming 5=Overlay
+type=4
+#1=h264 2=h265
+codec=2
+#encoder type 0=Hardware 1=Software
+enc-type=0
+sync=0
+bitrate=4000000
+#H264 Profile - 0=Baseline 2=Main 4=High
+#H265 Profile - 0=Main 1=Main10
+profile=0
+# set below properties in case of RTSPStreaming
+rtsp-port=8555
+udp-port=5401
 
 # sink type = 6 by default creates msg converter + broker.
 # To use multiple brokers use this group for converter and use

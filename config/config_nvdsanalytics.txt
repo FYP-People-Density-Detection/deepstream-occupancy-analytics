@@ -66,8 +66,9 @@ class-id=-1
 [line-crossing-stream-0]
 enable=1
 #Label;direction;lc
-line-crossing-Exit=900;1000;850;900;300;1000;1350;800;
-line-crossing-Entry=750;670;800;750;300;850;1350;650
+#line-crossing-Exit=900;1000;850;900;300;1000;1350;800;
+line-crossing-Entry=790;520;840;580;720;630;930;550
+#line-crossing-Entry=750;670;800;750;300;850;1350;650
 #line_color=0.75;0.25;0;1
 class-id=0
 #extended when 0- only counts crossing on the configured Line
@@ -80,7 +81,7 @@ extended=0
 mode=balanced
 
 [line-crossing-stream-1]
-enable=1
+enable=0
 #Label;direction;lc
 line-crossing-Exit=900;1000;850;900;300;1000;1350;800;
 line-crossing-Entry=750;670;800;750;300;850;1350;650
